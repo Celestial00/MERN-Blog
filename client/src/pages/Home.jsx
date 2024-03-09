@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import Loader from '../components/Loader'
 import { UserContext } from "../context/UserContext"
+import Hero from "../components/Hero"
+import AddButton from "../components/AddButton"
  
 
 const Home = () => {
@@ -18,6 +20,27 @@ const Home = () => {
   const [loader,setLoader]=useState(false)
   const {user}=useContext(UserContext)
   // console.log(user)
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if page is scrolled
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+       window.addEventListener('scroll', handleScroll);
+
+   
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
 
   const fetchPosts=async()=>{
     setLoader(true)
@@ -51,6 +74,13 @@ const Home = () => {
     
     <>
     <Navbar/>
+
+    
+    {user && isScrolled ? <AddButton/>: '' }
+    
+    {user  ?  '' : <Hero/>}
+
+
 <div className="px-8 md:px-[200px] min-h-[80vh]">
         {loader?<div className="h-[40vh] flex justify-center items-center"><Loader/></div>:!noResults?
         posts.map((post)=>(
@@ -62,7 +92,9 @@ const Home = () => {
           
         )):<h3 className="text-center font-primary font-bold mt-16">No posts available</h3>}
     </div>
-    {/* <Footer/> */}
+   
+   <div className="w-[100%] mb-7"></div>
+
     </>
     
   )

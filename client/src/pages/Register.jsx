@@ -35,13 +35,10 @@ const Register = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between px-6 md:px-[200px] py-8">
-    <h1 className="text-lg md:text-[1.5em] font-medium"><Link to="/">Blog</Link></h1>
-    <h3><Link to="/login">Login</Link></h3>
-    </div>
+  
     <div className="w-full flex justify-center items-center h-[80vh] ">
        <div className="flex flex-col justify-center items-center space-y-4 w-[80%] md:w-[25%]">
-         <h1 className="text-[3em] font-bold leading-9  text-center ">Register</h1>
+         <h1 className="text-[3em] font-bold leading-9 mb-5  text-center ">Register</h1>
          <input onChange={(e)=>setUsername(e.target.value)} className="w-full bg-gray-100 rounded-[10px] px-4 py-2 border-2  outline-0" type="text" placeholder="Enter your username" />
          <input onChange={(e)=>setEmail(e.target.value)} className="w-full px-4 py-2 bg-gray-100 rounded-[10px] border-2 outline-0" type="text" placeholder="Enter your email" />
          <input onChange={(e)=>setPassword(e.target.value)} className="w-full px-4 py-2 bg-gray-100 rounded-[10px] outline-0" type="password" placeholder="Enter your password" />

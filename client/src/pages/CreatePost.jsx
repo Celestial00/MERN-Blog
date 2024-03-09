@@ -79,7 +79,7 @@ const CreatePost = () => {
       <div className='px-6 md:px-[200px] mt-8'>
         <div className=" flex justify-between ">
 
-          <h1 className='font-bold font-primary md:text-[5em] text-xl '>Create a post</h1>
+          <h1 className='font-bold font-primary md:text-[4em] text-xl '>Create a post</h1>
 
           <div className=" flex justify-center items-center gap-2">
 
@@ -97,7 +97,7 @@ const CreatePost = () => {
         <form className='w-full flex flex-col space-y-2 md:space-y-1 mt-10'>
           <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder='Title' className=' text-[50px] font-primary px-4 py-2 outline-none' />
 
-          <textarea onChange={(e) => setDesc(e.target.value)} rows={15} cols={30} className='px-4 text-[20px]  font-primary  outline-none' placeholder='Enter post description' />
+          <textarea onChange={(e) => setDesc(e.target.value)} rows={90} cols={30} className='px-4 text-[20px]  font-primary  outline-none' placeholder='Enter post description' />
 
         </form>
 
