@@ -96,7 +96,7 @@ const PostDetails = () => {
       <Navbar />
       {loader ? <div className="h-[80vh] flex justify-center items-center w-full"><Loader /></div> : <div className="px-8 md:px-[200px] mt-8">
         <div className="flex justify-between flex-col items-center space-y-8 ">
-          <h1 className="text-2xl font-bold text-black md:text-[4em] leading-[55px]  ">{post.title}</h1>
+          <h1 className="text-2xl font-bold text-black md:text-[4em] leading-[60px] ">{post.title}</h1>
           {user?._id === post?.userId && <div className="flex items-center justify-center space-x-2">
             <p className="cursor-pointer" onClick={() => navigate("/edit/" + postId)} ><BiEdit size={25} /></p>
             <p className="cursor-pointer" onClick={handleDeletePost}><MdDelete size={25} /></p>

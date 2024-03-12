@@ -30,7 +30,7 @@ const Navbar = () => {
 
       <div className="flex justify-center items-center gap-4">
 
-        <h1 className="text-lg md:text-[1.5em] font-primary font-medium "><Link to="/">WanderLust</Link></h1>
+        <h1 className="text-lg md:text-[1.5em] hover:animate-jump hover:animate-once font-primary font-medium "><Link to="/">WanderLust</Link></h1>
         {path === "/" && <div className="flex justify-center items-center bg-gray-100 py-2 px-2 rounded-[10px]  space-x-0">
          
           <input onChange={(e) => setPrompt(e.target.value)} className="outline-none bg-gray-100  px-3 " placeholder="Search a post" type="text" />

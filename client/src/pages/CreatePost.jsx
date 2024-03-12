@@ -4,7 +4,7 @@ import { CiCirclePlus } from "react-icons/ci";
 
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
-import { URL } from '../url'
+// import { URL } from '../url'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -51,7 +51,7 @@ const CreatePost = () => {
       // console.log(data)
       //img upload
       try {
-        const imgUpload = await axios.post(URL + "/api/upload", data)
+        const imgUpload = await axios.post("http://localhost:5000" + "/api/upload", data)
         // console.log(imgUpload.data)
       }
       catch (err) {
@@ -61,7 +61,7 @@ const CreatePost = () => {
     //post upload
     // console.log(post)
     try {
-      const res = await axios.post(URL + "/api/posts/create", post, { withCredentials: true })
+      const res = await axios.post("http://localhost:5000" + "/api/posts/create", post, { withCredentials: true })
       navigate("/posts/post/" + res.data._id)
       // console.log(res.data)
 
@@ -94,7 +94,15 @@ const CreatePost = () => {
           </div>
 
         </div>
-        <form className='w-full flex flex-col space-y-2 md:space-y-1 mt-10'>
+
+        {/* image  */}
+
+        { file ? <img  className='mt-10 w-full rounded-md' src={URL.createObjectURL(file)} alt="" /> : '' }
+
+
+        {/* form  */}
+
+        <form className='w-full h-64  flex flex-col space-y-2 md:space-y-1 mt-10'>
           <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder='Title' className=' text-[50px] font-primary px-4 py-2 outline-none' />
 
           <textarea onChange={(e) => setDesc(e.target.value)} rows={90} cols={30} className='px-4 text-[20px]  font-primary  outline-none' placeholder='Enter post description' />

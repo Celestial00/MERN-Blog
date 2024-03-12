@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import { CiCirclePlus } from "react-icons/ci";
 import axios from "axios"
-import { URL } from "../url"
+// import { URL } from "../url"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 
@@ -18,14 +18,18 @@ const EditPost = () => {
   const [file, setFile] = useState(null)
   const [cat, setCat] = useState("")
   const [cats, setCats] = useState([])
+  const [fileBefore , setFileBefore] = useState(null)
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get(URL + "/api/posts/" + postId)
+      const res = await axios.get("http://localhost:5000" + "/api/posts/" + postId)
       setTitle(res.data.title)
       setDesc(res.data.desc)
       setFile(res.data.photo)
       setCats(res.data.categories)
+      setFileBefore(res.data.photo)
+
+      // console.log(res.data);
 
     }
     catch (err) {
@@ -52,7 +56,7 @@ const EditPost = () => {
       // console.log(data)
       //img upload
       try {
-        const imgUpload = await axios.post(URL + "/api/upload", data)
+        const imgUpload = await axios.post("http://localhost:5000" + "/api/upload", data)
         // console.log(imgUpload.data)
       }
       catch (err) {
@@ -62,7 +66,7 @@ const EditPost = () => {
     //post upload
 
     try {
-      const res = await axios.put(URL + "/api/posts/" + postId, post, { withCredentials: true })
+      const res = await axios.put("http://localhost:5000" + "/api/posts/" + postId, post, { withCredentials: true })
       navigate("/posts/post/" + res.data._id)
       // console.log(res.data)
 
@@ -76,7 +80,8 @@ const EditPost = () => {
 
   useEffect(() => {
     fetchPost()
-  }, [postId])
+
+  }, [])
 
   const deleteCategory = (i) => {
     let updatedCats = [...cats]
@@ -111,6 +116,11 @@ const EditPost = () => {
           </div>
 
         </div>
+
+        
+
+
+      
 
         <form className='w-full flex flex-col space-y-4 md:space-y-8 mt-10'>
           <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" placeholder='Title' className='px-4 py-2 text-[50px] outline-none' />

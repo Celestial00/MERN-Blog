@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import axios from 'axios'
 import {URL} from '../url'
+import ErrorNoti from "../components/ErrorNoti"
 
 
 const Register = () => {
@@ -11,6 +12,7 @@ const Register = () => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
   const [error,setError]=useState(false)
+  const [err, setErr] = useState(); 
   const navigate=useNavigate()
 
   const handleRegister=async ()=>{
@@ -26,7 +28,12 @@ const Register = () => {
     }
     catch(err){
       setError(true)
-      console.log(err)
+      setErr(err.response.data.err + " with this email")
+
+      console.log(err);
+
+      
+      
     }
 
   }
@@ -35,6 +42,8 @@ const Register = () => {
 
   return (
     <>
+
+    {err ? <ErrorNoti Error={err} /> : ''}
   
     <div className="w-full flex justify-center items-center h-[80vh] ">
        <div className="flex flex-col justify-center items-center space-y-4 w-[80%] md:w-[25%]">

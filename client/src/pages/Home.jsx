@@ -19,18 +19,29 @@ const Home = () => {
   const [noResults,setNoResults]=useState(false)
   const [loader,setLoader]=useState(false)
   const {user}=useContext(UserContext)
+  const [ButtonStyle , setButtonStyle ] = useState("fixed bottom-[20px] right-[20px] flex justify-center items-center w-[50px] h-[50px] cursor-pointer rounded-[50px] bg-black")
   // console.log(user)
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [CssStyle , setCssStyle] = useState("")
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if page is scrolled
+      
+
+
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 0) {
+
         setIsScrolled(true);
-      } else {
+        setButtonStyle("fixed bottom-[20px] right-[20px] flex justify-center items-center w-[50px] h-[50px] cursor-pointer rounded-[50px] bg-black animate-fade-up animate-once") 
+        setCssStyle("")
+
+      }
+      
+      else {
         setIsScrolled(false);
+        setButtonStyle("fixed bottom-[20px] right-[20px] flex justify-center items-center w-[50px] h-[50px] cursor-pointer rounded-[50px] bg-black animate-fade-down animate-once") 
       }
     };
 
@@ -76,7 +87,7 @@ const Home = () => {
     <Navbar/>
 
     
-    {user && isScrolled ? <AddButton/>: '' }
+    {user && isScrolled ? <AddButton style={ButtonStyle} />: '' }
     
     {user  ?  '' : <Hero/>}
 

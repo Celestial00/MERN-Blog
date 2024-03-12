@@ -6,22 +6,29 @@ const jwt=require('jsonwebtoken')
 
 
 //REGISTER
-router.post("/register",async(req,res)=>{
-    try{
-        const {username,email,password}=req.body
-        const salt=await bcrypt.genSalt(10)
-        const hashedPassword=await bcrypt.hashSync(password,salt)
-        const newUser=new User({username,email,password:hashedPassword})
-        const savedUser=await newUser.save()
-        res.status(200).json(savedUser)
+router.post("/register", async (req, res) => {
+    try {
+        const { username, email, password } = req.body
+        
+        // Check for existing user
+        const checkUser = await User.findOne({ email })
+        
+        if (checkUser !== null) { 
+            // If user already exists, return an error response
+            return res.status(302).json({ err: 'User Exist' })
+        }
 
+        // Create new user
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hashSync(password, salt)
+        const newUser = new User({ username, email, password: hashedPassword })
+        const savedUser = await newUser.save()
+        res.status(200).json(savedUser)
     }
-    catch(err){
+    catch (err) {
         res.status(500).json(err)
     }
-
 })
-
 
 //LOGIN
 router.post("/login",async (req,res)=>{
@@ -38,7 +45,7 @@ router.post("/login",async (req,res)=>{
             return res.status(401).json("Wrong credentials!")
         }
 
-        console.log(user);
+
 
         const token=jwt.sign({_id:user._id,username:user.username,email:user.email},'D988DC5C43CC844A5963DC4D96A4D',{expiresIn:"3d"})
         const {password,...info}=user._doc
